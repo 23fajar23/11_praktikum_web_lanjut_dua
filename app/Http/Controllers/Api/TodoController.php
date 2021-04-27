@@ -32,8 +32,8 @@ class TodoController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\TodoRequest  $request
+     * @return \Illuminate\Http\TodoResponse
      */
     public function store(TodoRequest $request)
     {
@@ -65,7 +65,7 @@ class TodoController extends Controller
      * @param  \App\Models\Todo  $todo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Todo $todo)
+    public function update(TodoRequest $request, Todo $todo)
     {
         $request->validated();
         $todo->todo = $request->todo;
@@ -85,7 +85,7 @@ class TodoController extends Controller
     public function destroy(Todo $todo)
     {
         if (auth()->user()->id == $todo->user_id ) {
-            $todo->delete;
+            $todo->delete();
             return $this->apiSuccess($todo);
         };
 
